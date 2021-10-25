@@ -1,0 +1,11 @@
+<h1>MAIN TEMPLATE</h1>
+
+<iterator:$_DATA: s_user />
+
+<sub: s_user>
+    <b>{$_VAL->name}</b><br/>
+    <b>{$_VAL->email}</b><br/>
+    <b>{$_VAL->id}</b><br/>
+    <b>{$_VAL->role}</b><br/>
+    <hr />
+</sub>

@@ -1,0 +1,28 @@
+<h1>ORM Model Generator Help</h1>
+<p>
+    <span class="label label-info">NOTE:</span> <b>Models are automatically included !</b>
+    <br /><br />
+    rad ORM Model generater basically comes as an additional tool to make your life more easier by saving a lot of time to avoid 
+    directly coding model files. It generates models from database that has been selected in /includes/settings.php 
+    (<i>which is amongst very first steps to start new radSYS project</i>).
+</p>
+
+<p>
+
+    <br />
+    Generated model names are singular from table names, examples are below:
+    <br /><br />
+    <div class="row"><div class="col-xs-2"><b>SQL Table</b></div><div class="col-xs-4"><b>Model Name</b></div></div>
+    <div class="row"><div class="col-xs-2" style="color:blue">users</div><div class="col-xs-4" style="color:blue"><b>User</b></div></div>
+    <div class="row"><div class="col-xs-2" style="color:blue">countries</div><div class="col-xs-4" style="color:blue"><b>Country</b></div></div>
+    <div class="row"><div class="col-xs-2" style="color:blue">linker_tags_videos</div><div class="col-xs-4" style="color:blue"><b>Linker_Tag_Video</b></div></div>
+</p>
+
+
+<p>
+    <span class="label label-warning">Warning:</span> You are recommended not to modify rad_modelizer.php, as it may result it unexpected behavior of generated models.
+    <br /><br />
+    <span class="label label-info">MySQL specific note:</span> Instead of looking into information_schema modelizer first lists tables under selected database to prevent unexpected corruption that may lead to
+    unconnected Models for tables that don't really exist.
+</p>
+

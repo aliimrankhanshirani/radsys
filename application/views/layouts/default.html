@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{$_APP['website_name']}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/ico" href="<url:icons/>/radsys-icon.ico" />
+		
+		<link rel="stylesheet" href="<url:css/>/bootstrap.min.css" />
+
+		<script src="<url:js/>/jquery.min.js"></script>
+		<script src="<url:js/>/bootstrap.min.js"></script>
+		<script src="<url:js/>/rad-ui-cache.js"></script>
+		<script src="<url:js/>/rad-routines.js"></script>
+	</head>
+	<body>
+		<script language="javascript">var root_path = '<url:root/>';</script>
+		<render:header />
+			
+		<div class="container">
+			<area:CONTENT />
+		</div>
+		
+		<render:footer />
+	</body>
+</html>

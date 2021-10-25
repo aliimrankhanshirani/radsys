@@ -1,0 +1,13 @@
+{
+    "name": "shirani/radsys",
+    "description": "RADSys 4.0 - PHP based MVC Framework based on KISS principle",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Ali Shirani",
+            "email": "shirani@gmail.com"
+        }
+    ],
+    "require": {}
+}

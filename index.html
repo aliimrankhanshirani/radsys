@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>radSYS 4.21.10 project tools</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/ico" href="./public_html/assets/icons/radsys-icon.ico" />
+
+        <link rel="stylesheet" href="https://bootswatch.com/5/lux/bootstrap.min.css" />
+
+        <script src="./public_html/assets/js/jquery.min.js"></script>
+        <script src="./public_html/assets/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <!-- img src="./public_html/assets/images/radsys-header.png"/ -->
+        <style>
+            /* navbar-band icon positioning fix - remove this CSS style when creating your own header */
+            .navbar-brand img {
+                margin-left: 5px;
+                margin-top: 0px;
+                margin-right: 5px;
+            }
+        </style>
+
+
+        <div class="container">
+			<div class="row">
+				<div class="col-1">
+					<img class="pull-left" src="./public_html/assets/images/radsys-logo-small.png" width="64" />
+				</div>
+				<div class="col-9">
+		 
+					<h1>radSYS://4.21.10/<span style="color:#1365B5" id="local_ip"></span></h1>
+					<script>$(function(){ $('#local_ip').load('./temp_tools/rad_extras.php?local_ip');});</script>
+					<hr/>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-4">
+					<h3></h3>
+					<!-- a class="btn btn-primary btn-lg rad-tool" role="button" href="./temp_tools/rad_modelizer.php">
+						<span class="glyphicon glyphicon-flash"></span>  </a>
+					</a -->
+					
+					<a href="./temp_tools/rad_modelizer.php" class="btn btn-primary rad-tool form-control align-left">[rm] RAD Maper - Generate ORM Models</a><br /><br />
+                    <div class="row">
+						<div class="col-7">
+                            <a href="./temp_tools/rad_compiler_templates.php" class="btn btn-lg btn-danger rad-tool form-control" data-fl="yes">[knit] Template Compiler</a></div>
+						<div class="col-5">
+                            <input type="checkbox" id="fl_create" checked="true" /> <small>Create forms logic</small>
+                            <br />
+                            <input type="checkbox" id="fl_config" checked="true" /> <small>Configure</small>
+                        </div>
+					</div><br />
+					
+					<a href="./temp_tools/rad_random_data.php" class="btn btn-warning rad-tool form-control" data-rand="yes">[dd] Gen. Random Data</a><br /><br />
+					<div class="row">
+						<div class="col-9"><a href="./temp_tools/rad_cache_scripts.php" class="btn btn-dark rad-tool form-control">[cm] Cache Manager</a></div>
+						<div class="col-3"><a href="./temp_tools/rad_extras.php?opcache_info" class="btn btn-dark rad-tool form-control">Stats</a></div>
+						<!-- div class="col-3"><a href="./temp_tools/opcache-status-master/" class="btn btn-dark rad-tool form-control">Stats</a></div -->
+					</div><br />
+					<div class="row">
+						<div class="col-12">
+							<a href="./temp_tools/rad_packages.php" class="btn btn-light rad-tool form-control">[pm] Package Manager</a>
+						</div>
+					</div><br />
+
+					<div class="row">
+						<div class="col-6"><a href="./temp_tools/" class="btn btn-info rad-tool form-control">* Build</a></div>
+						<div class="col-6"><a href="./temp_tools/" class="btn btn-info rad-tool form-control">* Deployts</a></div>
+					</div><br />
+                    <a href="./public_html" class="btn btn-success form-control" target="_blank">BROWSE ./public_html</a><br />
+
+					<hr />
+					<li>Package Manager</li>
+					<li>Auto Form Validation - with template compiler</li>
+				</div>
+				 <div class="col-8" style="height:650px;min-height:650px;max-height:650px;overflow-y: auto;" id="gen_view">
+					<img align="right" src="./public_html/assets/images/radsys-tools.png" />
+				</div>
+			</div>
+        </div>
+
+        <div style="position: fixed;bottom:0;" class="navbar navbar-default navbar-fixed-bottom" style="height:50px;">
+            <div class="container">
+              <a href="https://github.com/shirani" class="navbar-btn btn-primary btn pull-right">
+                <span class="glyphicon glyphicon-object-align-bottom"></span> get RADSys 4 - free
+              </a>
+
+            </div>
+        </div>
+
+        <script>
+            var last_btn_title = '';
+            (new Image).src = "./public_html/assets/images/loader.gif";
+            $(function(e)
+            {
+                $('.rad-help').click(function(e)
+                {
+                    e.preventDefault();
+                    var file = $(this).attr('rad-help-data-file').trim();
+                    if (file != '')
+                    {
+                        $.get(
+                            file,
+                            function (response)
+                            {
+                                $('#gen_view').html(
+                                    response
+                                );
+                            }
+                        );
+                    }
+                });
+                $('.rad-tool').click(function(e) {
+                    e.preventDefault();
+                    if ($(this).attr('data-rand') !== undefined)
+                    {
+						if (!confirm('This action will erase all data from tables and populate GIBBRISH!\n\n\n Are you sure?'))
+							return false;
+					}
+
+                    last_btn_title = $(this).parent().find('h3').text();
+                    $(this).parent().append('<div id="progress"><br /><img src="./public_html/assets/images/loader.gif" /> Loading....</div>');
+                    $('#gen_view').html('');
+                    var href = $(this).attr('href');
+                    if (!href.includes('?'))
+						href += '?';
+                    args_arr = [];
+                    if (href != '#')
+                    {
+
+                        if ($(this).attr('data-fl') !== undefined)
+                        {
+                            if( $('#fl_create').get(0).checked)
+                                args_arr.push('fl_create=1');
+                            if( $('#fl_config').get(0).checked)
+                                args_arr.push('fl_config=1');
+                        }
+                        $.get(
+                            href + args_arr.join('&'),
+                            function (response)
+                            {
+                                $('#progress').remove();
+                                $('#gen_view').html(
+                                    //'<h3><u>'+last_btn_title+'</u> - results:</h2>' +
+                                    response +
+                                    "<br/><br/>"
+                                );
+
+                            }
+                        );
+                    }
+                });
+            });
+        </script>
+
+
+
+    </body>
+</html>
+
+
+
